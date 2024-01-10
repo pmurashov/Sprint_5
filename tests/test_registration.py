@@ -3,7 +3,7 @@ import random
 import pytest
 from selenium.webdriver.support import expected_conditions
 
-from Sprint_5.locators import *
+from locators import *
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -58,4 +58,4 @@ class TestRegistration:
         driver.find_element(*Locators.REGISTER_BUTTON).click()
 
         assert driver.current_url == url
-        assert len(driver.find_elements(*Locators.INCORRECT_PASSWORD_TEXT)) == 1
+        assert driver.find_element(*Locators.INCORRECT_PASSWORD_TEXT).is_displayed()

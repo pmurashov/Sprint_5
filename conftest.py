@@ -4,7 +4,7 @@ import exrex
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from Sprint_5.locators import *
+from locators import *
 
 
 @pytest.fixture(scope="function")
@@ -42,4 +42,11 @@ def authorized_driver(driver, credentials):
     driver.find_element(*Locators.PASSWORD_INPUT).send_keys(credentials['password'])
     driver.find_element(*Locators.LOGIN_BUTTON).click()
     WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.MY_ACCOUNT_LINK))
+    yield driver
+
+
+@pytest.fixture()
+def unauthorized_driver(driver):
+    driver.get("https://stellarburgers.nomoreparties.site")
+    WebDriverWait(driver, 5).until(expected_conditions.visibility_of_element_located(Locators.LOGIN_MAIN_PAGE_BUTTON))
     yield driver
